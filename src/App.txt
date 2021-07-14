@@ -1,0 +1,21 @@
+Aplicação para guardar coleções de hobbies
+Funcionalidades:
+- Tela inicial de login
+- Tela para ver as coleções e criar nova coleção
+- Tela para as pessoas poderem procurar coleções e ver coleções de outras pessoas
+- Permitir enviar mensagem para outras pessoas que tem alguma coleção que interessa
+
+Tela Inicial
+- Login
+- Imagem relacionada a coleções
+
+Tela para mostrar coleção
+- Mostra as coleções da pessoa logada
+- Botão para criar nova coleção
+- Campo de pesquisa para buscar coleção de outras pessoas
+
+Tela para criar nova coleção
+- Campo para nome da coleção
+- Campo para nome do objeto da coleção
+- Campo para data do objeto da coleção
+- Campo para observação do objeto da coleção

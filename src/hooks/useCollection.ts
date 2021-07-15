@@ -31,7 +31,7 @@ export function useCollection(collectionId: string) {
 
     collectionRef.on('value', collection => {
       const databaseCollection = collection.val();
-      const firebaseCollections: FirebaseCollections = databaseCollection.object ?? {};
+      const firebaseCollections: FirebaseCollections = databaseCollection.objects ?? {};
 
       const parsedCollections = Object.entries(firebaseCollections).map(([key, value]) => {
         return {

@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button } from '../components/Button';
+import { Object } from '../components/Object';
 import { CollectionCode } from '../components/CollectionCode';
 import { useAuth } from '../hooks/useAuth';
 import { useCollection } from '../hooks/useCollection';
@@ -20,7 +21,7 @@ export function Collection() {
   const [newObject, setNewObject] = useState('');
   const collectionId = params.id;
 
-  const { objects, title } = useCollection(collectionId);
+  const { title, objects } = useCollection(collectionId);
 
   async function handleSendObject(event: FormEvent) {
     event.preventDefault();
@@ -59,8 +60,8 @@ export function Collection() {
 
       <main>
         <div className="collection-title">
-          <h1>Collection {title}</h1>
-          {objects.length > 0 && <span>{objects.length} pergunta(s)</span>}
+          <h1>Coleção / Hobby {title}</h1>
+          {objects.length > 0 && <span>{objects.length} objetos(s)</span>}
         </div>
 
         <form onSubmit={handleSendObject}>
@@ -73,7 +74,7 @@ export function Collection() {
           <div className="form-footer">
             {user ? (
               <div className="user-info">
-                <img src={user.avatar} alt="{user.name}" />
+                <img src={user.avatar} alt={user.name} />
                 <span>{user.name}</span>
               </div>
             ) : (
@@ -83,9 +84,18 @@ export function Collection() {
           </div>
         </form>
 
-
-
-
+        <div className="collection-list">
+          {objects.map(object => {
+            return (
+              <Object
+                key={object.id}
+                description={object.description}
+                author={object.author}
+              >
+              </Object>
+            );
+          })}
+        </div>
       </main>
     </div>
   );

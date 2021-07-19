@@ -3,41 +3,57 @@
   align-items: stretch;
   height: 100vh;
 
+  .image-credit {
+    display: flex;
+  }
+  
   .vertical-text {
-    font-size: 12px;
+    font-size: 8px;
+    line-height: 10px;
     color: #3d0bd3;
-    margin-top: 26px;
-    transform: rotate(-0deg);
+    transform: rotate(-90deg);
+    width: 100px;
+    // margin: auto;
   }
 
   img {
-    max-width: 180px;
-    align-self: center;
+    max-width: 240px;
+    // align-self: center;
   }
 
   aside {
-    flex: 8;
-    padding:0 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;  
+    flex: 7;
     background: #835afd;
-    color: #3d0bd3;
+    color: #fff;
+
+    display: flex;
     flex-direction: column;
-    text-align: center;
+    justify-content: center;  
+    // padding:120px 80px;
+    // align-items: center;
+    // text-align:justify;
     
     strong {
-      font: 500 25px 'Poppins', sans-serif;
+      font: 700 36px 'Poppins', sans-serif;
       line-height: 42 px;
-      margin: 36px 0 36px;
+      margin: 16px 0;
+      text-align: end;
+      
+      // max-width: 380px;
+      // border-right: auto;
     }
 
     p {
-    font-size: 18px;
-    color: #3d0bd3;
-    margin: 5px 0;
-    display: inline-flex;
-    align-items: center;
+    font-size: 24px;
+    // line-height: auto;
+    margin: 16px 0;
+    color: #fff;
+    // max-width: 340px;
+    text-align: end;
+    // border-right: auto;
+    // margin: 5px 0;
+    // display: inline-flex;
+    // align-items: center;
     }
   }
 
@@ -47,7 +63,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #b4a0f1;
+    background: #ffffff;
     color: #FFF;
   }
 

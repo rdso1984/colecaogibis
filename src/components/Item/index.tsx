@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 import cx from 'classnames';
-import './style.scss';
 
-type ObjectProps = {
+import './styles.scss';
+
+type ItemProps = {
   description: string;
   author: {
     name: string;
@@ -11,11 +12,11 @@ type ObjectProps = {
   children?: ReactNode;
 }
 
-export function Object({
+export function Item({
   description,
   author,
   children,
-}: ObjectProps) {
+}: ItemProps) {
   return (
     <div
       className={cx(

@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
+
 import { database } from "../services/firebase";
 import { useAuth } from "./useAuth";
 
-type FirebaseCollections = Record<string, {
+type FirebaseItems = Record<string, {
   author: {
     name: string;
     avatar: string;
   }
-  object: string;
   description: string;
 }>
 
-type CollectionType = {
+type ItemType = {
   id: string;
   author: {
     name: string;
     avatar: string;
   }
-  object: string;
   description: string;
 }
 
 export function useCollection(collectionId: string) {
   const { user } = useAuth();
-  const [objects, setObjects] = useState<CollectionType[]>([]);
+  const [items, setItems] = useState<ItemType[]>([]);
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -31,19 +30,18 @@ export function useCollection(collectionId: string) {
 
     collectionRef.on('value', collection => {
       const databaseCollection = collection.val();
-      const firebaseCollections: FirebaseCollections = databaseCollection.objects ?? {};
+      const firebaseItems: FirebaseItems = databaseCollection.items ?? {};
 
-      const parsedCollections = Object.entries(firebaseCollections).map(([key, value]) => {
+      const parsedItems = Object.entries(firebaseItems).map(([key, value]) => {
         return {
           id: key,
-          author: value.author,
-          object: value.object,
           description: value.description,
+          author: value.author,
         }
       })
 
       setTitle(databaseCollection.title);
-      setObjects(parsedCollections);
+      setItems(parsedItems);
     })
 
     return () => {
@@ -51,6 +49,6 @@ export function useCollection(collectionId: string) {
     }
   }, [collectionId, user?.id]);
 
-  return { objects, title }
+  return { items, title }
 
 }

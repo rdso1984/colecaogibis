@@ -1,7 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { Button } from '../components/Button';
-import { Object } from '../components/Object';
+import { Item } from '../components/Item';
 import { CollectionCode } from '../components/CollectionCode';
 import { useAuth } from '../hooks/useAuth';
 import { useCollection } from '../hooks/useCollection';
@@ -18,15 +19,15 @@ type CollectionParams = {
 export function Collection() {
   const { user } = useAuth();
   const params = useParams<CollectionParams>();
-  const [newObject, setNewObject] = useState('');
+  const [newItem, setNewItem] = useState('');
   const collectionId = params.id;
 
-  const { title, objects } = useCollection(collectionId);
+  const { title, items } = useCollection(collectionId);
 
-  async function handleSendObject(event: FormEvent) {
+  async function handleSendItem(event: FormEvent) {
     event.preventDefault();
 
-    if (newObject.trim() === '') {
+    if (newItem.trim() === '') {
       return;
     }
 
@@ -34,17 +35,16 @@ export function Collection() {
       throw new Error('You must be logged in');
     }
 
-    const object = {
+    const item = {
+      description: newItem,
       author: {
         name: user.name,
         avatar: user.avatar,
       },
-      object: newObject,
-      description: "descriptionTemp",
     };
 
-    await database.ref(`collections/${collectionId}/`).push(object);
-    setNewObject('');
+    await database.ref(`collections/${collectionId}/items`).push(item);
+    setNewItem('');
   }
 
   return (
@@ -61,14 +61,14 @@ export function Collection() {
       <main>
         <div className="collection-title">
           <h1>Coleção / Hobby {title}</h1>
-          {objects.length > 0 && <span>{objects.length} objetos(s)</span>}
+          {items.length > 0 && <span>{items.length} item(s)</span>}
         </div>
 
-        <form onSubmit={handleSendObject}>
+        <form onSubmit={handleSendItem}>
           <textarea
-            placeholder="Identificação do objeto a incluir na coleção"
-            onChange={event => setNewObject(event.target.value)}
-            value={newObject}
+            placeholder="Identificação do item a incluir na coleção"
+            onChange={event => setNewItem(event.target.value)}
+            value={newItem}
           />
 
           <div className="form-footer">
@@ -78,26 +78,26 @@ export function Collection() {
                 <span>{user.name}</span>
               </div>
             ) : (
-              <span>Para enviar um objeto, <button>faça seu login</button>.</span>
+              <span>Para enviar um item, <button>faça seu login</button>.</span>
             )}
-            <Button type="submit" disabled={!user}>Enviar objeto</Button>
+            <Button type="submit" disabled={!user}>Enviar item</Button>
           </div>
         </form>
 
         <div className="collection-list">
-          {objects.map(object => {
+          {items.map(item => {
             return (
-              <Object
-                key={object.id}
-                description={object.description}
-                author={object.author}
+              <Item
+                key={item.id}
+                description={item.description}
+                author={item.author}
               >
-              </Object>
+              </Item>
             );
           })}
+
         </div>
       </main>
     </div>
   );
-
 }
